@@ -13,11 +13,10 @@ public abstract class AbstractTransferCommand {
     protected Long amount;
     protected String transferID;
 
-    public AbstractTransferCommand create(String srcAccountID, String dstAccountID, Long amount, String transferID) {
+    public void create(String srcAccountID, String dstAccountID, Long amount, String transferID) {
         this.srcAccountID = srcAccountID;
         this.dstAccountID = dstAccountID;
         this.transferID = transferID;
         this.amount = amount;
-        return this;
     }
 }

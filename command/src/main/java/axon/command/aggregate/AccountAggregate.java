@@ -2,9 +2,11 @@ package axon.command.aggregate;
 
 import axon.command.commands.*;
 import axon.events.AccountCreationEvent;
+import axon.events.DepositCompletedEvent;
 import axon.events.DepositMoneyEvent;
 import axon.events.WithdrawMoneyEvent;
 import axon.events.transfer.MoneyTransferEvent;
+import axon.events.transfer.TransferApprovedEvent;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -87,6 +89,6 @@ public class AccountAggregate {
     protected void transferMoney(TransferApprovedCommand command) {
         log.debug("handling {}", command);
         apply(new DepositMoneyEvent(this.holderID, command.getAccountID(), command.getAmount()));
-        //apply(new DepositCompletedEvent(command.getAccountID(), command.getTransferID()));
+        apply(new DepositCompletedEvent(command.getAccountID(), command.getTransferID()));
     }
 }

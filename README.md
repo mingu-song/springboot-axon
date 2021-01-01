@@ -1,4 +1,4 @@
-### 참고 사이트
+## 참고 사이트
 * https://axoniq.io/download
     * Axon 서버 다운로드
     * AxonServer 폴더에서 직접 실행하거나 kubernetes 로 실행
@@ -9,7 +9,7 @@
 * https://cla9.tistory.com/2?category=814447
     * Axon 샘플
 
-### 이벤트 흐름
+## 이벤트 흐름
 * 기본 어노테이션 
     * @CommandHandler : Aggregate 에 대한 명령이 발생되었을 때 호출되는 메소드임을 알려주는 마커 역할
     * @EventSourcingHandler : CommandHandler 에서 발생한 이벤트를 적용하는 메소드임을 알려주는 마커 역할
@@ -30,6 +30,6 @@
     * ---- 위는 command event 에 대한 동기처리 ----
     * 비지니스 서비스 -> QueryGateway 를 통해 query 를 호출 -> @QueryHandler 을 찾아 실행
     
-    
+![](./EventSourced.png)
     
         

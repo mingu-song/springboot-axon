@@ -13,7 +13,7 @@ POST http://localhost:8080/account
 Content-Type: application/json
 
 {
-  "holderID" : "bff9c9ca-460f-4f7d-a2cc-b0573c988ff9"
+  "holderID" : "77f2e299-67cb-4b58-95a3-04db92a81644"
 }
 
 ###
@@ -22,8 +22,8 @@ POST http://localhost:8080/deposit
 Content-Type: application/json
 
 {
-  "accountID" : "91606499-2d8e-4581-9a61-8a16f4b901c1",
-  "holderID" : "bff9c9ca-460f-4f7d-a2cc-b0573c988ff9",
+  "accountID" : "ec88db11-171d-427d-9d16-122daf8660cf",
+  "holderID" : "60ca3def-97c5-4cb5-a25a-d8e430f8001c",
   "amount" : 500
 }
 
@@ -35,9 +35,29 @@ Content-Type: application/json
 {
   "accountID" : "91606499-2d8e-4581-9a61-8a16f4b901c1",
   "holderID" : "bff9c9ca-460f-4f7d-a2cc-b0573c988ff9",
-  "amount" : 5
+  "amount" : 465
 }
 
 ###
 
 POST http://localhost:9090/reset
+
+### 제주
+POST localhost:9091/account
+Content-Type: application/json
+
+{
+  "accountID" : "test",
+  "balance" : 100
+}
+
+### command 에서 jeju 이체
+POST http://localhost:8080/transfer
+Content-Type: application/json
+
+{
+"srcAccountID" : "test",
+"dstAccountID" : "25978164-4613-4a81-810c-357ed6854698",
+"amount" : 30,
+"bankType" : "JEJU"
+}
