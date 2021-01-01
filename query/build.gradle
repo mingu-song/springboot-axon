@@ -1,0 +1,22 @@
+ext {
+    axonVersion="4.4.5"
+}
+
+dependencies {
+    implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation "org.springframework.boot:spring-boot-starter-data-jpa"
+    implementation "org.postgresql:postgresql:42.2.18"
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    implementation("org.axonframework:axon-spring-boot-starter:${axonVersion}")
+    implementation("org.axonframework:axon-configuration:${axonVersion}")
+
+    // replay 병렬로 실행시 aggregate 단위로 나눠지면 선후관계에 의한 오류를 제거하기 위한 retry
+    implementation "org.springframework.retry:spring-retry"
+
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'io.projectreactor:reactor-core'
+}

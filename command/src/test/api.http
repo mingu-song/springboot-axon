@@ -1,0 +1,43 @@
+POST http://localhost:8080/holder
+Content-Type: application/json
+
+{
+  "holderName" : "YYY",
+  "tel" : "02-1234-5678",
+  "address" : "서울 서대문구"
+}
+
+###
+
+POST http://localhost:8080/account
+Content-Type: application/json
+
+{
+  "holderID" : "bff9c9ca-460f-4f7d-a2cc-b0573c988ff9"
+}
+
+###
+
+POST http://localhost:8080/deposit
+Content-Type: application/json
+
+{
+  "accountID" : "91606499-2d8e-4581-9a61-8a16f4b901c1",
+  "holderID" : "bff9c9ca-460f-4f7d-a2cc-b0573c988ff9",
+  "amount" : 500
+}
+
+###
+
+POST http://localhost:8080/withdrawal
+Content-Type: application/json
+
+{
+  "accountID" : "91606499-2d8e-4581-9a61-8a16f4b901c1",
+  "holderID" : "bff9c9ca-460f-4f7d-a2cc-b0573c988ff9",
+  "amount" : 5
+}
+
+###
+
+POST http://localhost:9090/reset

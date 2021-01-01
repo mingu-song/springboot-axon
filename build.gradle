@@ -1,0 +1,69 @@
+buildscript {
+    ext {
+        springBootVersion = '2.4.1'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+allprojects {
+    group = 'jaden.cqrs'
+    version = '0.0.1-SNAPSHOT'
+}
+
+subprojects {
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'java'
+
+    sourceCompatibility = '1.8'
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        testImplementation('org.springframework.boot:spring-boot-starter-test')
+    }
+
+    task initSourceFolders {
+        sourceSets*.java.srcDirs*.each {
+            if (!it.exists()) {
+                it.mkdirs()
+            }
+        }
+        sourceSets*.resources.srcDirs*.each {
+            if (!it.exists()) {
+                it.mkdirs()
+            }
+        }
+    }
+}
+
+project(':command') {
+    dependencies {
+        compile project(':common')
+    }
+}
+
+project(':query') {
+    dependencies {
+        compile project(':common')
+    }
+}
+
+project(':jejuBank') {
+    dependencies {
+        compile project(':common')
+    }
+}
+
+project(':seoulBank') {
+    dependencies {
+        compile project(':common')
+    }
+}
