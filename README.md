@@ -5,9 +5,8 @@
         * 직접 : java -jar axonserver-4.4.6.jar
         * k8s : kubectl apply -f ./kubernetes/axonserver.yaml
 * https://docs.axoniq.io/reference-guide/
-    * 공식 사이트 
 * https://cla9.tistory.com/2?category=814447
-    * Axon 샘플
+    * Axon 샘플 (거의 유일한 Axon 상세 자료인듯)
 
 ## 이벤트 흐름
 * 기본 어노테이션 

@@ -1,6 +1,10 @@
 package axon.jeju.aggregate;
 
+import axon.command.transfer.JejuBankCancelTransferCommand;
+import axon.command.transfer.JejuBankCompensationCancelCommand;
 import axon.command.transfer.JejuBankTransferCommand;
+import axon.events.transfer.CompletedCancelTransferEvent;
+import axon.events.transfer.CompletedCompensationCancelEvent;
 import axon.events.transfer.TransferApprovedEvent;
 import axon.events.transfer.TransferDeniedEvent;
 import axon.jeju.command.JejuAccountCreationCommand;
@@ -16,6 +20,9 @@ import org.axonframework.spring.stereotype.Aggregate;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
+
 import static org.axonframework.modelling.command.AggregateLifecycle.apply;
 
 @Entity
@@ -28,6 +35,8 @@ public class JejuAccountAggregate {
     @Id
     private String accountID;
     private Long balance;
+
+    private final transient Random random = new Random();
 
     @CommandHandler
     public JejuAccountAggregate(JejuAccountCreationCommand command) throws IllegalAccessException {
@@ -46,6 +55,7 @@ public class JejuAccountAggregate {
 
     @CommandHandler
     protected void on(JejuBankTransferCommand command) throws InterruptedException {
+        if (random.nextBoolean()) TimeUnit.SECONDS.sleep(15);
 
         log.debug("handling {}", command);
         if (this.balance < command.getAmount()) {
@@ -68,6 +78,40 @@ public class JejuAccountAggregate {
 
     @EventSourcingHandler
     protected void on(TransferApprovedEvent event) {
+        log.debug("event {}", event);
+        this.balance -= event.getAmount();
+    }
+
+    @CommandHandler
+    protected void on(JejuBankCancelTransferCommand command) {
+        log.debug("handling {}", command);
+        apply(CompletedCancelTransferEvent.builder()
+                .srcAccountID(command.getSrcAccountID())
+                .dstAccountID(command.getDstAccountID())
+                .transferID(command.getTransferID())
+                .amount(command.getAmount())
+                .build());
+    }
+
+    @EventSourcingHandler
+    protected void on(CompletedCancelTransferEvent event) {
+        log.debug("event {}", event);
+        this.balance += event.getAmount();
+    }
+
+    @CommandHandler
+    protected void on(JejuBankCompensationCancelCommand command) {
+        log.debug("handling {}", command);
+        apply(CompletedCompensationCancelEvent.builder()
+                .srcAccountID(command.getSrcAccountID())
+                .dstAccountID(command.getDstAccountID())
+                .transferID(command.getTransferID())
+                .amount(command.getAmount())
+                .build());
+    }
+
+    @EventSourcingHandler
+    protected void on(CompletedCompensationCancelEvent event) {
         log.debug("event {}", event);
         this.balance -= event.getAmount();
     }

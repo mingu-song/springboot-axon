@@ -1,8 +1,7 @@
 package axon.command.commands;
 
 import axon.command.dto.TransferDTO;
-import axon.command.transfer.JejuBankTransferCommand;
-import axon.command.transfer.SeoulBankTransferCommand;
+import axon.command.transfer.*;
 import axon.command.transfer.factory.TransferCommandFactory;
 import lombok.Builder;
 import lombok.Getter;
@@ -24,8 +23,8 @@ public class MoneyTransferCommand {
     private BankType bankType;
 
     public enum BankType{
-        JEJU(command -> new TransferCommandFactory(new JejuBankTransferCommand())),
-        SEOUL(command -> new TransferCommandFactory(new SeoulBankTransferCommand()));
+        JEJU(command -> new TransferCommandFactory(new JejuBankTransferCommand(),new JejuBankCancelTransferCommand(), new JejuBankCompensationCancelCommand())),
+        SEOUL(command -> new TransferCommandFactory(new SeoulBankTransferCommand(), new SeoulBankCancelTransferCommand(), new SeoulBankCompensationCancelCommand()));
 
         private Function<MoneyTransferCommand, TransferCommandFactory> expression;
         BankType(Function<MoneyTransferCommand, TransferCommandFactory> expression){ this.expression = expression;}

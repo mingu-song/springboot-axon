@@ -13,7 +13,7 @@ POST http://localhost:8080/account
 Content-Type: application/json
 
 {
-  "holderID" : "77f2e299-67cb-4b58-95a3-04db92a81644"
+  "holderID" : "44f50cfb-8bb3-43aa-ac12-b74af62d1dee"
 }
 
 ###
@@ -57,7 +57,7 @@ Content-Type: application/json
 
 {
 "srcAccountID" : "test",
-"dstAccountID" : "25978164-4613-4a81-810c-357ed6854698",
-"amount" : 30,
+"dstAccountID" : "4ab454d1-89a1-4266-9359-3c885620e74c",
+"amount" : 50,
 "bankType" : "JEJU"
 }
